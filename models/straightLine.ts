@@ -24,12 +24,12 @@ export class StraightLine {
     return y === this.slope * x - this.slope * this.pointA.x + this.pointA.y;
   }
 
-  isParalelWith(line: StraightLine): boolean {
+  isParallelWith(line: StraightLine): boolean {
     return Math.abs(this.slope) === Math.abs(line.slope);
   }
 
   findIntersectionWith(line: StraightLine): Point | undefined {
-    if (this.isParalelWith(line)) {
+    if (this.isParallelWith(line)) {
       return undefined;
     }
     const { slope: m1, yIntercept: c1 } = this;

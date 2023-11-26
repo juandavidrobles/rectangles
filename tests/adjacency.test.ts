@@ -58,7 +58,7 @@ describe("Adjacency cases", () => {
     expect(r1.getAdjacencyTypeWith(r2)).toBe(AdjacencyType.PROPER);
   });
 
-  it("Edge case: Adjacency partial", () => {
+  it("checks Edge case: Adjacency partial", () => {
     const r1 = new Rectangle([
       new Point(6, 1),
       new Point(10, 1),
@@ -74,7 +74,7 @@ describe("Adjacency cases", () => {
     expect(r1.getAdjacencyTypeWith(r2)).toBe(AdjacencyType.PARTIAL);
   });
 
-  it("Edge case: Lines adjacency but not segment adjacency", () => {
+  it("checks Edge case: Straight lines adjacencents but not segment adjacency", () => {
     const r1 = new Rectangle([
       new Point(3, 1),
       new Point(6, 1),
@@ -86,6 +86,23 @@ describe("Adjacency cases", () => {
       new Point(9, 5),
       new Point(9, 8),
       new Point(6, 8),
+    ]);
+    expect(r1.isAdjacentTo(r2)).toBe(false);
+    expect(r1.getAdjacencyTypeWith(r2)).toBe(AdjacencyType.NOT_ADJACENT);
+  });
+
+  it("checks Edge case: Rectangles Identical", () => {
+    const r1 = new Rectangle([
+      new Point(1, 1),
+      new Point(3, 1),
+      new Point(3, 3),
+      new Point(1, 3),
+    ]);
+    const r2 = new Rectangle([
+      new Point(1, 1),
+      new Point(3, 1),
+      new Point(3, 3),
+      new Point(1, 3),
     ]);
     expect(r1.isAdjacentTo(r2)).toBe(false);
     expect(r1.getAdjacencyTypeWith(r2)).toBe(AdjacencyType.NOT_ADJACENT);

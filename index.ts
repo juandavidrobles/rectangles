@@ -1,17 +1,16 @@
 import { Point, Rectangle } from "./models";
 
-// Rectangles Identical:
 const r1 = new Rectangle([
-  new Point(1, 1),
   new Point(3, 1),
-  new Point(3, 3),
-  new Point(1, 3),
+  new Point(6, 1),
+  new Point(6, 4.5),
+  new Point(3, 4.5),
 ]);
 const r2 = new Rectangle([
-  new Point(1, 1),
-  new Point(3, 1),
-  new Point(3, 3),
-  new Point(1, 3),
+  new Point(7, 3),
+  new Point(8, 4),
+  new Point(7, 6),
+  new Point(5, 4),
 ]);
 
 console.log("Adjacent: ", r1.isAdjacentTo(r2));

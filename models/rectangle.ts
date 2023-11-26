@@ -4,11 +4,11 @@ import { Point } from "./point";
 
 export class Rectangle {
   vertices: Point[];
-  lineSegments: LineSegment[];
+  edges: LineSegment[];
 
   constructor(vertices: Point[]) {
     this.vertices = vertices;
-    this.lineSegments = this.getLines(vertices);
+    this.edges = this.getLines(vertices);
   }
 
   private getLines([p1, p2, p3, p4]: Point[]) {
@@ -64,8 +64,8 @@ export class Rectangle {
   }
 
   hasIntersectionWith(rectangle: Rectangle) {
-    for (const ownSegment of this.lineSegments) {
-      for (const externalSegment of rectangle.lineSegments) {
+    for (const ownSegment of this.edges) {
+      for (const externalSegment of rectangle.edges) {
         if (ownSegment.findIntersectionWith(externalSegment)) {
           return true;
         }
@@ -76,8 +76,8 @@ export class Rectangle {
 
   findIntersectionsWith(rectangle: Rectangle): Point[] {
     const intersections: Point[] = [];
-    for (const ownSegment of this.lineSegments) {
-      for (const externalSegment of rectangle.lineSegments) {
+    for (const ownSegment of this.edges) {
+      for (const externalSegment of rectangle.edges) {
         const intersection = ownSegment.findIntersectionWith(externalSegment);
         if (
           intersection &&
@@ -90,9 +90,12 @@ export class Rectangle {
     return intersections;
   }
 
-  isAdjacentTo(rectangle: Rectangle) {
-    for (const ownSegment of this.lineSegments) {
-      for (const externalSegment of rectangle.lineSegments) {
+  isAdjacentTo(rectangle: Rectangle): boolean {
+    if (this.isContainedBy(rectangle) || this.doesContainRectangle(rectangle)) {
+      return false;
+    }
+    for (const ownSegment of this.edges) {
+      for (const externalSegment of rectangle.edges) {
         if (ownSegment.isAdjacentWith(externalSegment)) {
           return true;
         }
@@ -102,9 +105,13 @@ export class Rectangle {
   }
 
   getAdjacencyTypeWith(rectangle: Rectangle): AdjacencyType {
+    if (this.isContainedBy(rectangle) || this.doesContainRectangle(rectangle)) {
+      return AdjacencyType.NOT_ADJACENT;
+    }
+    let isThereAnySubline = false;
     let isThereAnyPartial = false;
-    for (const ownSegment of this.lineSegments) {
-      for (const externalSegment of rectangle.lineSegments) {
+    for (const ownSegment of this.edges) {
+      for (const externalSegment of rectangle.edges) {
         if (ownSegment.isAdjacentWith(externalSegment)) {
           if (
             (ownSegment.pointA.isSamePoint(externalSegment.pointA) &&
@@ -119,15 +126,19 @@ export class Rectangle {
             (externalSegment.hasPointOnTheLineSegment(ownSegment.pointA) &&
               externalSegment.hasPointOnTheLineSegment(ownSegment.pointB))
           ) {
-            return AdjacencyType.SUBLINE;
+            isThereAnySubline = true;
           } else {
             isThereAnyPartial = true;
           }
         }
       }
     }
-    return isThereAnyPartial
-      ? AdjacencyType.PARTIAL
-      : AdjacencyType.NOT_ADJACENT;
+    if (isThereAnySubline) {
+      return AdjacencyType.SUBLINE;
+    }
+    if (isThereAnyPartial) {
+      return AdjacencyType.PARTIAL;
+    }
+    return AdjacencyType.NOT_ADJACENT;
   }
 }

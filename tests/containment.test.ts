@@ -69,7 +69,7 @@ describe("Containment cases", () => {
     expect(r1.isContainedBy(r2)).toBe(false);
   });
 
-  it("Edge case: Containment with subline adjacency", () => {
+  it("checks Edge case: Containment with subline adjacency", () => {
     const r1 = new Rectangle([
       new Point(4, 2),
       new Point(10, 2),
@@ -86,7 +86,7 @@ describe("Containment cases", () => {
     expect(r1.isContainedBy(r2)).toBe(false);
   });
 
-  it("Edge case: Rectangles Identical", () => {
+  it("checks Edge case: Rectangles Identical", () => {
     const r1 = new Rectangle([
       new Point(1, 1),
       new Point(3, 1),

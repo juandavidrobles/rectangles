@@ -18,7 +18,7 @@ export class LineSegment extends StraightLine {
   }
 
   findIntersectionWith(line: LineSegment): Point | undefined {
-    if (this.isParalelWith(line)) {
+    if (this.isParallelWith(line)) {
       return undefined;
     }
 
@@ -51,7 +51,7 @@ export class LineSegment extends StraightLine {
 
   isAdjacentWith(segment: LineSegment) {
     return (
-      this.isParalelWith(segment) &&
+      this.isParallelWith(segment) &&
       (this.hasPointOnTheLineSegment(segment.pointA) ||
         this.hasPointOnTheLineSegment(segment.pointB) ||
         segment.hasPointOnTheLineSegment(this.pointA) ||
