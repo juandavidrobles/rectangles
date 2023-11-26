@@ -1,0 +1,28 @@
+# Dependency directories
+node_modules/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+
+# Build output
+dist/
+build/
+
+# IDE and text editor folders
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Other temporary files
+.cache/
+tmp/
